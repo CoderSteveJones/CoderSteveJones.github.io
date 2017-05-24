@@ -426,17 +426,17 @@
 <li><a href="https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01《招聘一个靠谱的iOS》面试题参考答案/《招聘一个靠谱的iOS》面试题参考答案（上）.md#20-一个objc对象的isa的指针指向什么有什么作用" target="_blank" rel="external">一个objc对象的isa的指针指向什么？有什么作用？</a></li>
 <li><a href="https://github.com/ChenYilong/iOSInterviewQuestions/blob/master/01《招聘一个靠谱的iOS》面试题参考答案/《招聘一个靠谱的iOS》面试题参考答案（上）.md#21-下面的代码输出什么" target="_blank" rel="external">下面的代码输出什么？</a> </li>
 </ol>
-<pre class=" language-Objective-C"><code class="language-Objective-C">    @implementation Son : Father
-    - (id)init
-    {
-        self = [super init];
-        if (self) {
-            NSLog(@"%@", NSStringFromClass([self class]));
-            NSLog(@"%@", NSStringFromClass([super class]));
-        }
-        return self;
-    }
-    @end
+<pre class=" language-objectivec"><code class="language-objectivec">    <span class="token keyword">@implementation</span> Son <span class="token punctuation">:</span> Father
+    <span class="token operator">-</span> <span class="token punctuation">(</span>id<span class="token punctuation">)</span>init
+    <span class="token punctuation">{</span>
+        <span class="token keyword">self</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">super</span> init<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">NSLog</span><span class="token punctuation">(</span><span class="token string">@"%@"</span><span class="token punctuation">,</span> <span class="token function">NSStringFromClass</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">self</span> class<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">NSLog</span><span class="token punctuation">(</span><span class="token string">@"%@"</span><span class="token punctuation">,</span> <span class="token function">NSStringFromClass</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token keyword">super</span> class<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">self</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">@end</span>
 </code></pre>
 <ol>
 <li>22–55题，请看下篇。</li>
