@@ -10,7 +10,7 @@
     
     <title>
         
-            我是不懂浪漫 | 
+            iOS消息转发机制-- 动态方法解析实现@dynamic | 
         
         Aben
     </title>
@@ -58,7 +58,7 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="我是不懂浪漫 | Aben">
+    <meta property="og:title" content="iOS消息转发机制-- 动态方法解析实现@dynamic | Aben">
     <meta property="og:description" content="null">
     
 
@@ -242,7 +242,7 @@
     </button>
 
     <ul class="post-toc-wrap mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="post-toc-trigger-btn" style="max-height:80vh; overflow-y:scroll;">
-        
+        <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现代码："><span class="post-toc-number">1.</span> <span class="post-toc-text">实现代码：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#调用："><span class="post-toc-number">2.</span> <span class="post-toc-text">调用：</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#输出："><span class="post-toc-number">3.</span> <span class="post-toc-text">输出：</span></a></li></ol>
 
         <!--
         <li class="mdl-menu__item">
@@ -279,7 +279,7 @@
         
     
             <p class="article-headline-p">
-                我是不懂浪漫
+                iOS消息转发机制-- 动态方法解析实现@dynamic
             </p>
         </div>
 
@@ -298,7 +298,7 @@
     <!-- Author Name & Date -->
     <div>
         <strong>Aben</strong>
-        <span>6月 05, 2017</span>
+        <span>2月 02, 2017</span>
     </div>
 
     <div class="section-spacer"></div>
@@ -338,7 +338,7 @@
 
     <!-- Share Weibo -->
     
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=我是不懂浪漫&url=http://yoursite.com//2017/06/05/我是不懂浪漫/index.html&pic=&searchPic=false&style=simple" target="_blank">
+        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=iOS消息转发机制-- 动态方法解析实现@dynamic&url=http://yoursite.com//2017/02/02/iOS消息转发机制-动态方法解析/index.html&pic=&searchPic=false&style=simple" target="_blank">
             <li class="mdl-menu__item">
                 分享到微博
             </li>
@@ -347,7 +347,7 @@
 
     <!-- Share Twitter -->
     
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=我是不懂浪漫&url=http://yoursite.com//2017/06/05/我是不懂浪漫/index.html&via=Aben" target="_blank">
+        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=iOS消息转发机制-- 动态方法解析实现@dynamic&url=http://yoursite.com//2017/02/02/iOS消息转发机制-动态方法解析/index.html&via=Aben" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Twitter
             </li>
@@ -356,7 +356,7 @@
 
     <!-- Share Facebook -->
     
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com//2017/06/05/我是不懂浪漫/index.html" target="_blank">
+        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com//2017/02/02/iOS消息转发机制-动态方法解析/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Facebook
             </li>
@@ -365,7 +365,7 @@
 
     <!-- Share Google+ -->
     
-        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com//2017/06/05/我是不懂浪漫/index.html" target="_blank">
+        <a class="post_share-link" href="https://plus.google.com/share?url=http://yoursite.com//2017/02/02/iOS消息转发机制-动态方法解析/index.html" target="_blank">
             <li class="mdl-menu__item">
                 分享到 Google+
             </li>
@@ -389,30 +389,109 @@
                 <!-- Post Content -->
                 <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
     
-        <p><img src="http://oqepgj2jp.bkt.clouddn.com/1.jpg" alt="一"></p>
-<blockquote>
-<p>1</p>
+        <blockquote>
+<p>假设要编写一个类似于“字典”的对象，它里面可以容纳其他对象，只不过开发者要通过属性来存取其中的数据，这个类的设计思路：由开发者来添加属性定义，并将其申明为@dynamic,而类则会自动处理相关属性值的存放和获取操作。</p>
 </blockquote>
-<p><img src="http://oqepgj2jp.bkt.clouddn.com/2.jpg" alt="二"></p>
+<h4 id="实现代码："><a href="#实现代码：" class="headerlink" title="实现代码："></a>实现代码：</h4><p><code>.h文件</code></p>
+<pre class=" language-objectivec"><code class="language-objectivec"><span class="token macro property">#<span class="token directive keyword">import</span> &lt;Foundation/Foundation.h></span>
+
+<span class="token keyword">@interface</span> MyDictionary <span class="token punctuation">:</span> NSObject
+<span class="token keyword">@property</span> <span class="token punctuation">(</span>nonatomic<span class="token punctuation">,</span> strong<span class="token punctuation">)</span> NSDate <span class="token operator">*</span>date<span class="token punctuation">;</span>
+<span class="token keyword">@end</span>
+</code></pre>
 <blockquote>
-<p>2</p>
+<p>本例中，属性具体设置什么无关紧要，只是掩饰此功能。在类的内部，每个属性的值还会存放在字典中，所以先在类中编写如下代码，并将属性申明为@dynamic,这样编译器就不会为其自动生成实例变量的存取方法了。</p>
 </blockquote>
-<p><img src="http://oqepgj2jp.bkt.clouddn.com/3.jpg" alt="三"></p>
-<blockquote>
-<p>3</p>
-</blockquote>
-<p><img src="http://oqepgj2jp.bkt.clouddn.com/4.jpg" alt="四"></p>
-<blockquote>
-<p>4</p>
-</blockquote>
-<p><img src="http://oqepgj2jp.bkt.clouddn.com/5.jpg" alt="五"></p>
-<blockquote>
-<p>5</p>
-</blockquote>
-<p><img src="http://oqepgj2jp.bkt.clouddn.com/6.jpg" alt="六"></p>
-<blockquote>
-<p>6</p>
-</blockquote>
+<p><code>.m文件</code></p>
+<pre class=" language-objectivec"><code class="language-objectivec"><span class="token macro property">#<span class="token directive keyword">import</span> "MyDictionary.h"</span>
+<span class="token macro property">#<span class="token directive keyword">import</span> &lt;objc/runtime.h></span>
+
+<span class="token keyword">@interface</span> <span class="token function">MyDictionary</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">@property</span> <span class="token punctuation">(</span>nonatomic<span class="token punctuation">,</span> strong<span class="token punctuation">)</span> NSMutableDictionary <span class="token operator">*</span>storeDictionary<span class="token punctuation">;</span>
+
+<span class="token keyword">@end</span>
+
+<span class="token keyword">@implementation</span> MyDictionary
+
+<span class="token keyword">@dynamic</span> date<span class="token punctuation">;</span>
+
+<span class="token operator">-</span> <span class="token punctuation">(</span>instancetype<span class="token punctuation">)</span>init
+<span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">self</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token keyword">super</span> init<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        _storeDictionary <span class="token operator">=</span> <span class="token punctuation">[</span>NSMutableDictionary dictionary<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">self</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// 通过消息转移实现运行时动态添加get 和 set 方法</span>
+<span class="token operator">+</span> <span class="token punctuation">(</span>BOOL<span class="token punctuation">)</span>resolveInstanceMethod<span class="token punctuation">:</span><span class="token punctuation">(</span>SEL<span class="token punctuation">)</span>sel
+<span class="token punctuation">{</span>
+    NSString <span class="token operator">*</span>selectorStr <span class="token operator">=</span> <span class="token function">NSStringFromSelector</span><span class="token punctuation">(</span>sel<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>selectorStr hasPrefix<span class="token punctuation">:</span><span class="token string">@"set"</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token function">class_addMethod</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">,</span> sel<span class="token punctuation">,</span> <span class="token punctuation">(</span>IMP<span class="token punctuation">)</span>autoDictionarySetter<span class="token punctuation">,</span> <span class="token string">"v@:@"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+
+        <span class="token function">class_addMethod</span><span class="token punctuation">(</span><span class="token keyword">self</span><span class="token punctuation">,</span> sel<span class="token punctuation">,</span> <span class="token punctuation">(</span>IMP<span class="token punctuation">)</span>autoDictionaryGetter<span class="token punctuation">,</span> <span class="token string">"@@:"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> YES<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// get 方法的实现</span>
+id <span class="token function">autoDictionaryGetter</span><span class="token punctuation">(</span>id <span class="token keyword">self</span><span class="token punctuation">,</span> SEL _cmd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    MyDictionary <span class="token operator">*</span>typeSelf <span class="token operator">=</span> <span class="token punctuation">(</span>MyDictionary <span class="token operator">*</span><span class="token punctuation">)</span><span class="token keyword">self</span><span class="token punctuation">;</span>
+    NSMutableDictionary <span class="token operator">*</span>backingStore <span class="token operator">=</span> typeSelf<span class="token punctuation">.</span>storeDictionary<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// the key is simply the selector name</span>
+    NSString <span class="token operator">*</span>key <span class="token operator">=</span> <span class="token function">NSStringFromSelector</span><span class="token punctuation">(</span>_cmd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// return the value</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>backingStore objectForKey<span class="token punctuation">:</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// set 方法的实现</span>
+<span class="token keyword">void</span> <span class="token function">autoDictionarySetter</span><span class="token punctuation">(</span>id <span class="token keyword">self</span><span class="token punctuation">,</span> SEL _cmd<span class="token punctuation">,</span> id value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// get the backstore from the object</span>
+    MyDictionary <span class="token operator">*</span>typeSelf <span class="token operator">=</span> <span class="token punctuation">(</span>MyDictionary <span class="token operator">*</span><span class="token punctuation">)</span><span class="token keyword">self</span><span class="token punctuation">;</span>
+    NSMutableDictionary <span class="token operator">*</span>backingStore <span class="token operator">=</span> typeSelf<span class="token punctuation">.</span>storeDictionary<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// get method name from _cmd</span>
+    NSString <span class="token operator">*</span>selectorString <span class="token operator">=</span> <span class="token function">NSStringFromSelector</span><span class="token punctuation">(</span>_cmd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    NSMutableString <span class="token operator">*</span>key <span class="token operator">=</span> <span class="token punctuation">[</span>selectorString mutableCopy<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// remove ":" at the end</span>
+    <span class="token punctuation">[</span>key deleteCharactersInRange<span class="token punctuation">:</span><span class="token function">NSMakeRange</span><span class="token punctuation">(</span>key<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// remove "set" at the prefix</span>
+    <span class="token punctuation">[</span>key deleteCharactersInRange<span class="token punctuation">:</span><span class="token function">NSMakeRange</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// lowercase the first charactor</span>
+    NSString <span class="token operator">*</span>firstLowercaseString <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>key substringToIndex<span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">]</span> lowercaseString<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">[</span>key replaceCharactersInRange<span class="token punctuation">:</span><span class="token function">NSMakeRange</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> withString<span class="token punctuation">:</span>firstLowercaseString<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// set value</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token punctuation">[</span>backingStore setObject<span class="token punctuation">:</span>value forKey<span class="token punctuation">:</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token punctuation">[</span>backingStore removeObjectForKey<span class="token punctuation">:</span>key<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+<span class="token punctuation">}</span>
+<span class="token keyword">@end</span>
+</code></pre>
+<h4 id="调用："><a href="#调用：" class="headerlink" title="调用："></a>调用：</h4><pre class=" language-objectivec"><code class="language-objectivec"><span class="token operator">-</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token punctuation">)</span>viewDidLoad <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span><span class="token keyword">super</span> viewDidLoad<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Do any additional setup after loading the view, typically from a nib.</span>
+    MyDictionary <span class="token operator">*</span>dic <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span>MyDictionary alloc<span class="token punctuation">]</span> init<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    dic<span class="token punctuation">.</span>date <span class="token operator">=</span> <span class="token punctuation">[</span>NSDate date<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">NSLog</span><span class="token punctuation">(</span><span class="token string">@"date = %@"</span><span class="token punctuation">,</span>dic<span class="token punctuation">.</span>date<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="输出："><a href="#输出：" class="headerlink" title="输出："></a>输出：</h4><pre class=" language-objectivec"><code class="language-objectivec">date <span class="token operator">=</span> <span class="token number">2017</span><span class="token operator">-</span><span class="token number">07</span><span class="token operator">-</span><span class="token number">02</span> <span class="token number">03</span><span class="token punctuation">:</span><span class="token number">26</span><span class="token punctuation">:</span><span class="token number">08</span> <span class="token operator">+</span><span class="token number">0000</span>
+</code></pre>
 
     
 
@@ -439,7 +518,7 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/06/13/GIF的秘密/" id="post_nav-newer" class="prev-content">
+        <a href="/2017/03/10/Github上的代码添加Cocoapods支持/" id="post_nav-newer" class="prev-content">
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
                 <i class="material-icons">arrow_back</i>
             </button>
@@ -452,14 +531,6 @@
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
-    
-        <a href="/2017/06/05/NSPredicate-使用小结/" id="post_nav-older" class="next-content">
-            旧篇
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_forward</i>
-            </button>
-        </a>
     
 </nav>
 
